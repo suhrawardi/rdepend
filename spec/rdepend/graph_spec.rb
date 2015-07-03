@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/spec_helper'
+require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Rdepend::Graph do
   let(:root) { double('root', event_type: :root, name: 'root_node') }

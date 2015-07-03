@@ -1,5 +1,5 @@
 require 'singleton'
-
+require 'active_support/inflector'
 require 'ruby-graphviz'
 
 require 'rdepend/version'

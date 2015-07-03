@@ -1,27 +1,30 @@
 module Rdepend
-  class Event::Root
+  class Event
+    class Root
+      attr_reader :name
 
-    def initialize(name)
-      @name = name
-      update_state
-      update_graph
-    end
+      def initialize(name)
+        @name = name
+        update_state
+        update_graph
+      end
 
-    def name
-      @name
-    end
+      def called_from
+        nil
+      end
 
-    def called_from
-      nil
-    end
+      def event_type
+        :root
+      end
 
-    private
+      private
 
-    def update_state
-      State.instance.push(self)
-    end
+      def update_state
+        State.instance.push(self)
+      end
 
-    def update_graph
+      def update_graph
+      end
     end
   end
 end

@@ -1,11 +1,8 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe Rdepend::Event do
-
   describe '.initialize' do
-
     context 'a :call event' do
-
       let(:event) { double('event', event: :call) }
 
       it 'instantiates a Call event' do
@@ -15,7 +12,6 @@ describe Rdepend::Event do
     end
 
     context 'a :return event' do
-
       let(:event) { double('event', event: :return) }
 
       it 'instantiates a Return event' do

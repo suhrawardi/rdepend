@@ -1,9 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe Rdepend::State do
-
   describe 'is a singleton' do
-
     it "can't be initialized" do
       expect { Rdepend::State.new }.to raise_error(NoMethodError)
     end
@@ -20,9 +18,9 @@ describe Rdepend::State do
     end
 
     it 'accepts a new state' do
-      expect {
+      expect do
         Rdepend::State.instance.push('a new state')
-      }.to change(Rdepend::State.instance, :size)
+      end.to change(Rdepend::State.instance, :size)
     end
   end
 
@@ -50,9 +48,9 @@ describe Rdepend::State do
     end
 
     it 'accepts a new state' do
-      expect {
+      expect do
         Rdepend::State.instance.pop
-      }.to change(Rdepend::State.instance, :size)
+      end.to change(Rdepend::State.instance, :size)
     end
   end
 

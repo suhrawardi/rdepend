@@ -1,13 +1,7 @@
 module Rdepend
   class Event
-
     def initialize(event)
-      case event.event
-      when :call
-        Rdepend::Event::Call.new(event)
-      when :return
-        Rdepend::Event::Return.new(event)
-      end
+      "Rdepend::Event::#{event.event.to_s.classify}".constantize.new(event)
     end
   end
 end

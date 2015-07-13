@@ -1,20 +1,22 @@
 module Rdepend
   class Event
-    class Root
-      attr_reader :name
-
-      def initialize(name)
-        @name = name
+    class Root < Rdepend::Event::Abstract
+      def initialize(event)
+        @event = event
         update_state
         update_graph
       end
 
-      def called_from
-        nil
+      def name
+        "#{@event.defined_class}_#{method}"
       end
 
-      def event_type
-        :root
+      def method
+        @event.method_id.to_s
+      end
+
+      def root?
+        true
       end
 
       private
@@ -24,6 +26,7 @@ module Rdepend
       end
 
       def update_graph
+        Graph::Creator.instance.add_node(self)
       end
     end
   end

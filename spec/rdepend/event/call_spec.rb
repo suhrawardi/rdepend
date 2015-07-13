@@ -1,9 +1,18 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Rdepend::Event::Call do
-  describe '.initialize' do
-    let(:event) { double('event', defined_class: 'Null', event: :call) }
+  let(:event) do
+    double('event', method_id: 'pointer', defined_class: 'Null', event: :call)
+  end
+  let(:creator) { Rdepend::Graph::Creator.instance }
 
+  before do
+    allow(Rdepend::Graph::Creator).to receive(:instance).and_return(creator)
+    allow(creator).to receive(:add_node)
+    allow(creator).to receive(:add_node_with_edge)
+  end
+
+  describe '.initialize' do
     it 'adds the state' do
       expect do
         Rdepend::Event::Call.new(event)
@@ -81,7 +90,8 @@ describe Rdepend::Event::Call do
   describe '.klass_name' do
     context 'a class' do
       let(:event) do
-        double('event', defined_class: '#<Class:User(id: int)>')
+        double('event', method_id: 'create',
+               defined_class: '#<Class:User(id: int)>')
       end
 
       it 'returns the klass_name' do
@@ -91,7 +101,8 @@ describe Rdepend::Event::Call do
 
     context 'a module' do
       let(:event) do
-        double('event', defined_class: '#<Module:UserHelper>')
+        double('event', method_id: 'create',
+               defined_class: '#<Module:UserHelper>')
       end
 
       it 'returns the module name' do
@@ -101,10 +112,6 @@ describe Rdepend::Event::Call do
   end
 
   describe '.called_from' do
-    let(:event) do
-      double('event', defined_class: 'Null')
-    end
-
     before do
       Rdepend::State.instance.push('a dummy event')
     end
@@ -115,10 +122,6 @@ describe Rdepend::Event::Call do
   end
 
   describe '.event_type' do
-    let(:event) do
-      double('event', defined_class: 'Null', event: :call)
-    end
-
     it 'returns the event type' do
       expect(Rdepend::Event::Call.new(event).event_type).to eq(:call)
     end

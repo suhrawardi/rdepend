@@ -22,8 +22,9 @@ module Rdepend
       end
 
       def add_node_with_edge(from_event, to_event)
-        from = get_or_create_node(from_event)
         to = get_or_create_node(to_event)
+        puts "#{from_event.key} => #{to_event.key}"
+        from = get_or_create_node(from_event)
         Edge.get_or_create(@graph, from, to)
       end
 
@@ -38,7 +39,7 @@ module Rdepend
       end
 
       def create_root_graph(event)
-        @graph = Root.new(event.name)
+        @graph = Root.new(event.label)
       end
 
       def get_or_create_sub_graph(event)

@@ -15,7 +15,10 @@ module Rdepend
 
     def self.start
       Rdepend::Event::Root.new(root_event)
-      @trace = TracePoint.new(:call, :return) { |tp| Rdepend::Event.new(tp) }
+      @trace = TracePoint.new(:call) do |tp|
+        #Rdepend::Event.new(tp, caller_locations(2,1).first)
+        Rdepend::Event.new(tp, caller_locations(2,9))
+      end
       @trace.enable
     end
 
@@ -29,14 +32,17 @@ module Rdepend
     end
 
     def self.root_params
-      [File.basename($0, '.rb'), :main]
+      [nil, '<main>', $0]
+    end
+
+    def self.output_file
+      "./rdepend/#{File.basename($0, '.rb')}.svg"
     end
 
     def self.halt_with_message
-      path = "./rdepend/#{self.root_params.join('_')}.svg"
       puts "\t⏳   Exiting, but writing an Ꝛdepend graph first, so please wait!"
       self.stop
-      puts "\t⭕   Finished writing Ꝛdepend graph to #{path}"
+      puts "\t⭕   Finished writing Ꝛdepend graph to #{self.output_file}"
     end
   end
 end

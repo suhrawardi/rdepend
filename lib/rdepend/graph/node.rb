@@ -17,26 +17,18 @@ module Rdepend
         self
       end
 
-      def name
-        @event.name
-      end
-
       private
 
       def get
-        @node = @parent.get_node(@event.name)
+        @node = @parent.get_node(@event.key)
       end
 
       def create
-        @node = @parent.add_node(@event.name, label: label, **opts)
+        @node = @parent.add_node(@event.key, label: @event.method, **opts)
       end
 
       def opts
         {}
-      end
-
-      def label
-        @event.method
       end
     end
   end

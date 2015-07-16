@@ -15,7 +15,12 @@ module Rdepend
 
       def print
         Dir.mkdir('rdepend') unless Dir.exist?('rdepend')
-        @graph.output(svg: "rdepend/#{@graph.name}.svg")
+        @graph.output(svg: file_name)
+      end
+
+      def file_name
+        file = File.basename($0, '.rb')
+        "rdepend/#{file}.svg"
       end
 
       def label

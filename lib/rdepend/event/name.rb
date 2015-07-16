@@ -5,13 +5,13 @@ module Rdepend
         @event = event
       end
 
-      def defined_class
-        @event.defined_class.to_s
-      end
+#      def defined_class
+#        @event.defined_class.to_s
+#      end
 
-      def name
-        [klass, method].join
-      end
+#      def name
+#        [klass, method].join
+#      end
     end
   end
 end

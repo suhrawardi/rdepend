@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Rdepend::VERSION
   spec.authors       = ['jarra']
   spec.email         = ['suhrawardi@gmail.com']
-  spec.summary       = %q(TODO: Write a short summary. Required.)
-  spec.description   = %q(TODO: Write a longer description. Optional.)
+  spec.summary       = %q(a work in progress)
+  spec.description   = %q(a work in progress)
   spec.homepage      = ''
   spec.license       = 'MIT'
 

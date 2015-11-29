@@ -31,8 +31,7 @@ Or install it yourself as:
 
 ```ruby
 Rdepend.with_trace do
-  @een = Een.new
-  @een.start
+  # your code
 end
 ```
 
@@ -40,8 +39,7 @@ or
 
 ```ruby
 Rdepend.trace
-@een = Een.new
-@een.start
+# your code
 ```
 
 ## Contributing

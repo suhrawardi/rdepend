@@ -13,8 +13,9 @@ module Rdepend
     def self.stop
       result = RubyProf.stop
       result.eliminate_methods!([/Integer#times/, /Class#new/])
-      puts "Writing Ꝛdepend graph to #{$0}.dot.svg"
-      Rdepend::Printer.new(result).print("#{$0}.dot")
+      puts "Writing Ꝛdepend graph to rdepend/#{$0}.dot.svg"
+      File.mkdir('rdepend') unless File.exist?('rdepend')
+      Rdepend::Printer.new(result).print("rdepend/#{$0}.dot")
     end
 
     def self.halt_with_message

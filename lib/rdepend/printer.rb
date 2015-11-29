@@ -19,7 +19,7 @@ module Rdepend
       print_threads
       add('}')
       File.open(output, 'w') { |file| file.write(@contents.join("\n")) }
-      `dot -Tsvg #{output} > #{output}.svg`
+      %w(png svg).each { |ext| `dot -T#{ext} #{output} > #{output}.#{ext}` }
     end
 
     private

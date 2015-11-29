@@ -4,6 +4,7 @@
 /pkg/
 /tmp/
 /ext/
+/rdepend/
 *.bundle
 *.so
 *.o

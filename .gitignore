@@ -1,18 +1,14 @@
 /.bundle/
-/.yardoc
 /Gemfile.lock
-/_yardoc/
-/coverage/
 /doc/
 /pkg/
-/spec/reports/
 /tmp/
+/ext/
 *.bundle
 *.so
 *.o
 *.a
 mkmf.log
 
-*.svg
-
-/test.rb
+*.dot.svg
+*.dot

@@ -6,4 +6,8 @@ module Rdepend
   def self.trace
     Rdepend::Trace.init
   end
+
+  def self.stop
+    Rdepend::Trace.stop
+  end
 end

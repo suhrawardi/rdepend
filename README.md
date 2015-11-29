@@ -1,6 +1,15 @@
-# Rdepend
+# Ꝛdepend
 
-TODO: Write a gem description
+Mind that this Gem is very experimental, a work in progress
+
+It generates a graph visualization of the dependencies in your codebase.
+
+A lot of incoming links are good, as that means that a function/module is
+re-used a lot.
+A lot of outgoing links a bad, as that means that that part of the code has
+a lot of dependencies.
+
+See also http://www.whiteboxtest.com/information-flow-metrics.php
 
 ## Installation
 
@@ -20,7 +29,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Rdepend.with_trace do
+  @een = Een.new
+  @een.start
+end
+```
+
+```ruby
+Rdepend.trace
+@een = Een.new
+@een.start
+```
 
 ## Contributing
 

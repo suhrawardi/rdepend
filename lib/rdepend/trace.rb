@@ -12,7 +12,7 @@ module Rdepend
 
     def self.stop
       result = RubyProf.stop
-      result.eliminate_methods!([/Integer#times/])
+      result.eliminate_methods!([/Integer#times/, /Class#new/])
       puts "Writing Ꝛdepend graph to #{$0}.dot.svg"
       Rdepend::Printer.new(result).print("#{$0}.dot")
     end

@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['suhrawardi@gmail.com']
   spec.summary       = %q(generates a graph visualization of the dependencies in your codebase)
   spec.description   = %q(a work in progress, use it at your own risk)
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/suhrawardi/rdepend'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")

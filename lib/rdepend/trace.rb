@@ -1,11 +1,7 @@
-at_exit do
-  Rdepend::Trace.halt_with_message
-end
-
 module Rdepend
   class Trace
     def self.exec(&block)
-      self.start
+      self.init
       yield
       self.stop
     end
@@ -17,9 +13,8 @@ module Rdepend
     def self.stop
       result = RubyProf.stop
       result.eliminate_methods!([/Integer#times/])
-      printer = Rdepend::Printer.new(result)
       puts "Writing Ꝛdepend graph to #{$0}.dot.svg"
-      printer.print("#{$0}.dot")
+      Rdepend::Printer.new(result).print("#{$0}.dot")
     end
 
     def self.halt_with_message
@@ -27,4 +22,8 @@ module Rdepend
       self.stop
     end
   end
+end
+
+at_exit do
+  Rdepend::Trace.halt_with_message
 end

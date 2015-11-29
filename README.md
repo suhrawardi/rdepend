@@ -4,9 +4,9 @@ Mind that this Gem is very experimental, a work in progress
 
 It generates a graph visualization of the dependencies in your codebase.
 
-A lot of incoming links are good, as that means that a function/module is
+A lot of incoming links is good, as that means that a module is
 re-used a lot.
-A lot of outgoing links a bad, as that means that that part of the code has
+A lot of outgoing links is bad, as that means that that part of the code has
 a lot of dependencies.
 
 See also http://www.whiteboxtest.com/information-flow-metrics.php
@@ -35,6 +35,8 @@ Rdepend.with_trace do
   @een.start
 end
 ```
+
+or
 
 ```ruby
 Rdepend.trace

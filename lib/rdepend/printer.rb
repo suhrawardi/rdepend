@@ -26,33 +26,39 @@ module Rdepend
       @result.threads.each do |thread|
         add("subgraph \"Thread #{thread.id}\" {")
         print_thread(thread)
-        add("}")
+        add('}')
         print_classes(thread)
       end
     end
 
     def print_thread(thread)
       thread.methods.sort_by(&sort_method).reverse_each do |method|
-        name = method_name(method).split("#").last
+        name = method_name(method).split('#').last
         add("#{method.object_id} [label=\"#{name}\"];")
         @seen_methods << method
         print_edges(method)
       end
     end
 
+    def grouped_methods(thread)
+      thread.methods.inject({}) { |m, method|
+        m[method.klass_name] = (m[method.klass_name] || []) << method; m
+      }
+    end
+
     def print_classes(thread)
-      grouped = {}
-      thread.methods.each{|m| grouped[m.klass_name] ||= []; grouped[m.klass_name] << m}
-      grouped.each do |cls, methods2|
-        big_methods = methods2.select { |m| @seen_methods.include?(m) }
-        if !big_methods.empty?
-          add("subgraph cluster_#{cls.object_id} {")
-          add("label = \"#{cls}\";", "fontcolor = #{CLASS_COLOR};")
-          add("fontsize = 16;", "color = #{CLASS_COLOR};")
-          big_methods.each { |m| add("#{m.object_id};") }
-          add("}")
-        end
+      grouped_methods(thread).each do |cls, methods|
+        print_methods(cls, methods.select { |m| @seen_methods.include?(m) })
       end
+    end
+
+    def print_methods(cls, methods)
+      return if methods.empty?
+      add("subgraph cluster_#{cls.object_id} {")
+      add("label = \"#{cls}\";", "fontcolor = #{CLASS_COLOR};")
+      add('fontsize = 16;', "color = #{CLASS_COLOR};")
+      methods.each { |m| add("#{m.object_id};") }
+      add('}')
     end
 
     def print_edges(method)

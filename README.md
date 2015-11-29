@@ -9,7 +9,7 @@ re-used a lot.
 A lot of outgoing links is bad, as that means that that part of the code has
 a lot of dependencies.
 
-See also http://www.whiteboxtest.com/information-flow-metrics.php
+See http://www.whiteboxtest.com/information-flow-metrics.php
 
 ## Installation
 
@@ -44,7 +44,7 @@ Rdepend.trace
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/rdepend/fork )
+1. Fork it ( https://github.com/suhrawardi/rdepend/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

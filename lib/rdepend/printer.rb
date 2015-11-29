@@ -3,10 +3,12 @@ require 'set'
 
 module Rdepend
   class Printer < RubyProf::AbstractPrinter
-    CLASS_COLOR = '"#666666"'
     EDGE_COLOR  = '"#666666"'
 
+    attr_reader :color
+
     def initialize(result)
+      reset_color
       super(result)
       @seen_methods = Set.new
     end
@@ -22,6 +24,11 @@ module Rdepend
 
     private
 
+    def reset_color
+      color = (0...6).map { |_| '1234567890ABCDEF'.split(//).sample }.join
+      @color = "\"##{color}\""
+    end
+
     def print_threads
       @result.threads.each do |thread|
         add("subgraph \"Thread #{thread.id}\" {")
@@ -34,7 +41,9 @@ module Rdepend
     def print_thread(thread)
       thread.methods.sort_by(&sort_method).reverse_each do |method|
         name = method_name(method).split('#').last
-        add("#{method.object_id} [label=\"#{name}\"];")
+        reset_color
+        colors = "color=#{color}; fontcolor=#{color}; fontsize=14"
+        add("#{method.object_id} [label=\"#{name}\"; #{colors}];")
         @seen_methods << method
         print_edges(method)
       end
@@ -54,17 +63,18 @@ module Rdepend
 
     def print_methods(cls, methods)
       return if methods.empty?
+      reset_color
       add("subgraph cluster_#{cls.object_id} {")
-      add("label = \"#{cls}\";", "fontcolor = #{CLASS_COLOR};")
-      add('fontsize = 16;', "color = #{CLASS_COLOR};")
+      add("label = \"#{cls}\";", "fontcolor = #{color};")
+      add('fontsize = 16;', "color = #{color};")
       methods.each { |m| add("#{m.object_id};") }
       add('}')
     end
 
     def print_edges(method)
       method.aggregate_children.each do |child|
-        label = "#{child.called}/#{child.target.called}"
-        label = "label=\"#{label}\" fontsize=10 fontcolor=#{EDGE_COLOR}"
+        label = "label=\"#{child.called}/#{child.target.called}\""
+        label = "fontsize=10 color=#{color} fontcolor=#{EDGE_COLOR}"
         add("#{method.object_id} -> #{child.target.object_id} [#{label}];")
       end
     end

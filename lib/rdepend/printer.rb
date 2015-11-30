@@ -5,6 +5,8 @@ module Rdepend
   class Printer < RubyProf::AbstractPrinter
     EDGE_COLOR  = '"#666666"'
 
+    PROGGER = ['|','/','-','\\']
+
     attr_reader :color
 
     def initialize(result)
@@ -79,7 +81,14 @@ module Rdepend
       end
     end
 
+    def print_progress
+      p = PROGGER.delete_at(0)
+      PROGGER.push(p)
+      STDOUT.print "#{p}\r"
+    end
+
     def add(*args)
+      print_progress
       @contents = (@contents || []) + [args].flatten
     end
   end

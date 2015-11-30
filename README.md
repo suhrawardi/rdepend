@@ -46,6 +46,8 @@ Don't even think about using this Gem in a production environment.
 You can use it in your integration test suite for instance. But don't use it
 in a test environment where you use stubs, mocks and doubles etc.
 
+Oh, and it can take a very long time, even on a simple Rails project.
+
 ## Contributing
 
 1. Fork it ( https://github.com/suhrawardi/rdepend/fork )

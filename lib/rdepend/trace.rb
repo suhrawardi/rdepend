@@ -14,7 +14,7 @@ module Rdepend
       result = RubyProf.stop
       result.eliminate_methods!([/Integer#times/, /Class#new/])
       puts "Writing Ꝛdepend graph to rdepend/#{$0}.dot.svg"
-      File.mkdir('rdepend') unless File.exist?('rdepend')
+      Dir.mkdir('rdepend') unless Dir.exist?('rdepend')
       Rdepend::Printer.new(result).print("rdepend/#{$0}.dot")
     end
 

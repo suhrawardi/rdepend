@@ -13,6 +13,8 @@ See http://www.whiteboxtest.com/information-flow-metrics.php
 
 ## Installation
 
+This Gem depends on Graphviz, http://www.graphviz.org/
+
 Add this line to your application's Gemfile:
 
 ```ruby

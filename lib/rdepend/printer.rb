@@ -15,7 +15,8 @@ module Rdepend
 
     def print(output, options = {})
       setup_options(options)
-      add('digraph "Profile" {', 'labelloc=t;', 'labeljust=l;')
+      add('digraph "Profile" {')
+      add('ratio="2.0";', 'labelloc=t;', 'labeljust=l;')
       print_threads
       add('}')
       File.open(output, 'w') { |file| file.write(@contents.join("\n")) }

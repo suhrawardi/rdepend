@@ -42,12 +42,16 @@ module Rdepend
       RubyProf.start
     end
 
+    def self.base
+      File.basename($0)
+    end
+
     def self.stop
       result = RubyProf.stop
       result.eliminate_methods!(@paths)
-      puts "Writing Ꝛdepend graph to rdepend/#{$0}.dot.svg"
+      puts "Writing Ꝛdepend graph to rdepend/#{base}.dot.svg"
       Dir.mkdir('rdepend') unless Dir.exist?('rdepend')
-      Rdepend::Printer.new(result).print("rdepend/#{$0}.dot")
+      Rdepend::Printer.new(result).print("rdepend/#{base}.dot")
     end
 
     def self.halt_with_message

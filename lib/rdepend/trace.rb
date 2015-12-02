@@ -15,8 +15,12 @@ module RubyProf
       i = 0
       while i < methods.size
         method_info = methods[i]
-        source = method_info.source_file
-        match = paths.any? { |path| source.start_with?(path) }
+        parent = method_info.parents.first
+        sources = [method_info.source_file]
+        sources << parent.target.source_file unless parent.nil?
+        match = paths.any? do |path|
+          sources.any? { |source| source.start_with?(path) }
+        end
         if match || method_info.root?
           i += 1
         else

@@ -18,7 +18,6 @@ module RubyProf
         source = method_info.source_file
         match = paths.any? { |path| source.start_with?(path) }
         if match || method_info.root?
-          puts method_info.full_name
           i += 1
         else
           eliminated << methods.delete_at(i)

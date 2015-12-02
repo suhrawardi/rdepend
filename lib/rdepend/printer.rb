@@ -5,8 +5,6 @@ module Rdepend
   class Printer < RubyProf::AbstractPrinter
     EDGE_COLOR  = '"#666666"'
 
-    PROGGER = ['|','/','-','\\']
-
     attr_reader :color
 
     def initialize(result)
@@ -44,7 +42,7 @@ module Rdepend
       thread.methods.sort_by(&sort_method).reverse_each do |method|
         name = method_name(method).split('#').last
         reset_color
-        colors = "color=#{color}; fontcolor=#{color}; fontsize=14"
+        colors = "color=#{color}; fontcolor=#{color}; fontsize=10"
         add("#{method.object_id} [label=\"#{name}\"; #{colors}];")
         @seen_methods << method
         print_edges(method)
@@ -67,28 +65,21 @@ module Rdepend
       return if methods.empty?
       reset_color
       add("subgraph cluster_#{cls.object_id} {")
-      add("label = \"#{cls}\";", "fontcolor = #{color};")
-      add('fontsize = 16;', "color = #{color};")
+      add("label=\"#{cls.gsub(/\(.*\)/, '')}\";", "fontcolor=#{color};")
+      add('fontsize=12;', "color=#{color}; shape=box; style=\"rounded\";")
       methods.each { |m| add("#{m.object_id};") }
       add('}')
     end
 
     def print_edges(method)
       method.aggregate_children.each do |child|
-        label = "label=\"#{child.called}/#{child.target.called}\""
-        label = "fontsize=10 color=#{color} fontcolor=#{EDGE_COLOR}"
+        label = "label=\"#{child.called}\/#{child.target.called}\";"
+        label = "#{label} fontsize=8; color=#{color}; fontcolor=#{EDGE_COLOR};"
         add("#{method.object_id} -> #{child.target.object_id} [#{label}];")
       end
     end
 
-    def print_progress
-      p = PROGGER.delete_at(0)
-      PROGGER.push(p)
-      STDOUT.print "#{p}\r"
-    end
-
     def add(*args)
-      print_progress
       @contents = (@contents || []) + [args].flatten
     end
   end
